@@ -26,14 +26,13 @@ just simulate simulation
 <p><strong>Always use <code>just generate-makeline</code></strong> (not <code>just generate</code>)</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="3" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="3" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="generation-modes-two-architectures">Generation Modes: Two Architectures</h2>
-<p><strong><code>just generate</code></strong> (legacy machine_config mode):</p>
+<h2 id="generation-modes">Generation Modes</h2>
+<p><strong><code>just generate</code></strong> (machine_config mode):</p>
 <ul>
 <li>Spawner entries WITHOUT <code>-M</code> flag</li>
 <li>Modules read config from <code>config.json</code> file</li>
-<li>Communication via <code>ConfigTopic</code> (file-based)</li>
+<li>Communication via ConfigTopic (file-based)</li>
 <li>Uses Identity adapter</li>
-<li><strong>NO hot-reload capability</strong></li>
 </ul>
 <p><strong><code>just generate-makeline</code></strong> (makeline_server mode):</p>
 <ul>
@@ -41,9 +40,9 @@ just simulate simulation
 <li>Modules query <code>makeline_server</code> for config</li>
 <li>Communication via IPC queries to server</li>
 <li>Uses makeline adapter</li>
-<li><strong>Hot-reload enabled</strong></li>
+<li>Hot-reload enabled</li>
 </ul>
-<p><strong>Why this matters</strong>: <code>-M</code> flag tells modules to use makeline_server instead of static config files. Only makeline_server mode supports hot-reload.</p>
+<p><strong>Why</strong>: <code>-M</code> flag tells modules to use makeline_server instead of static config files</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="4" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="4" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="where-files-live">Where Files Live</h2>
@@ -92,7 +91,7 @@ profiles/                  # Source + generated
 <ul>
 <li>Edit <code>profiles/simulation/makeline.json</code> (generated file)</li>
 <li>Save → 2.5s → Changed modules reload</li>
-<li>makeline_server detects change → diffs → sends SectionChanged events</li>
+<li>makeline_server detects → diffs → sends SectionChanged events</li>
 <li>Use when: Tweaking config values, testing changes quickly</li>
 </ul>
 <p><strong>What happens during hot-reload</strong>: Diff → backup to <code>backups/{timestamp}/</code> → reload affected modules</p>
@@ -121,7 +120,11 @@ profiles/                  # Source + generated
   <span class="hljs-attr">&quot;identities&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hvac-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
 </code></pre>
-<p><strong>Add these edits to a layer</strong> in <code>layer_groups</code> → Save → Hot-reloads in 2.5s</p>
+<p><strong>To apply these edits</strong>:</p>
+<ul>
+<li>Add to layer in source profile → run <code>just generate-makeline</code> (full regen)</li>
+<li>Or directly edit module sections in <code>profiles/simulation/makeline.json</code> → hot-reload in 2.5s</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="8" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="physical-hardware-context">Physical Hardware Context</h2>
@@ -155,15 +158,13 @@ profiles/                  # Source + generated
 <h2 id="system-tools">System Tools</h2>
 <p><strong>makeline_generator</strong> (binary):</p>
 <ul>
-<li>Reads source profile (<code>profiles/simulation.json</code>)</li>
-<li>Expands layout → applies layers → outputs files</li>
+<li>Reads source profile, expands layout, applies layers, outputs files</li>
 <li>Run via: <code>just generate-makeline simulation</code></li>
 </ul>
 <p><strong>spawner</strong> (binary):</p>
 <ul>
 <li>Process manager that launches all modules</li>
 <li>Reads <code>generated/profiles/simulation/spawner.json</code></li>
-<li>Handles process lifecycle (start, stop, restart)</li>
 <li>Run via: <code>just simulate simulation</code></li>
 </ul>
 <p><strong>makeline_server</strong> (binary):</p>
@@ -171,45 +172,26 @@ profiles/                  # Source + generated
 <li>Config provider for modules in <code>-M</code> mode</li>
 <li>Watches <code>profiles/simulation/makeline.json</code> for changes</li>
 <li>Performs diff and sends SectionChanged events</li>
-<li>Automatically launched by spawner (when using generate-makeline)</li>
 </ul>
-<p><strong>makeline</strong> (module):</p>
-<ul>
-<li>One of 21 Core modules (runs as a process)</li>
-<li>NOT the same as makeline_server</li>
-<li>Coordinates system behavior</li>
-</ul>
-<p><strong>Explorer</strong> (tool):</p>
-<ul>
-<li>Runtime interaction tool for live system</li>
-<li>Use for: Line build switching, system inspection</li>
-<li>Sends commands to modules via IPC</li>
-</ul>
+<p><strong>makeline</strong> (module): One of 21 Core modules (NOT makeline_server)</p>
+<p><strong>Explorer</strong> (tool): Runtime interaction for line build switching, system inspection</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="10" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="architecture-rationale">Architecture Rationale</h2>
-<p><strong>Why this design?</strong></p>
-<p><strong>Hardware abstraction</strong>: Physical machines have cabinets → devices → hardware modules. Software mirrors this hierarchy so config matches physical reality.</p>
-<p><strong>Hot-reload requirement</strong>: Must change config without stopping production. Graph-based design allows:</p>
+<p><strong>Hardware abstraction</strong>: Physical machines have cabinets → devices → modules. Software mirrors this hierarchy so config matches reality.</p>
+<p><strong>Hot-reload requirement</strong>: Must change config without stopping production</p>
 <ul>
-<li>Diff detection (compare old vs new graph)</li>
+<li>Graph-based diff detection (compare old vs new)</li>
 <li>Selective module restart (only changed modules)</li>
 <li>Process isolation (spawner manages independent processes)</li>
 </ul>
-<p><strong>Distributed system</strong>: Each module = separate process communicating via IPC</p>
+<p><strong>Distributed system</strong>: Each module = separate process via IPC</p>
 <ul>
-<li>Fault isolation: One module crash doesn't kill entire system</li>
+<li>Fault isolation: One crash doesn't kill entire system</li>
 <li>Independent scaling: Can run modules on different machines</li>
-<li>Hot-reload: Restart one process without affecting others</li>
 </ul>
-<p><strong>Configuration flexibility</strong>: Layers allow:</p>
-<ul>
-<li>Base hardware config (layout expansion)</li>
-<li>Environment-specific overrides (prod vs test ingredients)</li>
-<li>Developer local tweaks (custom_layers.json)</li>
-<li>Runtime switching (line builds)</li>
-</ul>
-<p><strong>Why graph structure?</strong>: Represents parent-child relationships (cabinet contains devices, device contains modules). Traversable for planning, validation, visualization.</p>
+<p><strong>Configuration flexibility</strong>: Layers allow base config, env overrides, dev tweaks, runtime line build switching</p>
+<p><strong>Graph structure</strong>: Represents parent-child relationships, traversable for planning/validation/visualization</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="11" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="system-architecture">System Architecture</h2>
@@ -257,9 +239,9 @@ profiles/                  # Source + generated
 <p><strong>Standard expansion</strong>: <code>cabinet.devices()</code> returns DeviceKind list → each device expanded to modules</p>
 <p><strong>Dispenser expansion</strong>: NOT in <code>Dispense.devices()</code> return value</p>
 <ul>
-<li>Added dynamically via <code>AssignDispensers</code> layer edit</li>
-<li>Why: Variable count (12 for v5111, 18 for v5112), per-dispenser config</li>
-<li>Process: Layer application calls graph mutation functions:
+<li>Added dynamically via <code>AssignDispensers</code> layer edit during layer application</li>
+<li>Why: Variable count (12 for v5111, 18 for v5112), per-dispenser configuration</li>
+<li>Process: Layer application calls graph mutation functions
 <ul>
 <li><code>makeline.add_device_to_cabinet(DeviceKind::Dispenser, cabinet_node)</code></li>
 <li><code>makeline.add_module_kind_to_device(ModuleKind::Dispenser, device_node)</code></li>
@@ -267,7 +249,7 @@ profiles/                  # Source + generated
 </ul>
 </li>
 </ul>
-<p><strong>Result</strong>: Dispensers are layer-configured, not layout-defined</p>
+<p><strong>Result</strong>: Dispensers are layer-configured, not layout-defined (exception to enum expansion pattern)</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="14" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="device-%E2%86%92-module-details">Device → Module Details</h2>
@@ -294,80 +276,36 @@ profiles/                  # Source + generated
 <h2 id="core-modules-overview">Core Modules Overview</h2>
 <p><strong>System orchestration</strong>:</p>
 <ul>
-<li><code>Planner</code>: Assembly planning (which dispenser, what order)</li>
-<li><code>Sequencer</code>: Executes plans as bowl moves through system</li>
-<li><code>Follower</code>: Tracks individual bowls (position, state)</li>
-<li><code>Preprocessor</code>: Pre-processing incoming orders</li>
+<li>Planner: Assembly planning (which dispenser, what order)</li>
+<li>Sequencer: Executes plans as bowl moves through system</li>
+<li>Follower: Tracks individual bowls (position, state)</li>
 </ul>
 <p><strong>Hardware control</strong>:</p>
 <ul>
-<li><code>Makeline</code>: Central coordinator, config hot-reload</li>
-<li><code>MachineConfig</code>: Provides config to other modules</li>
-<li><code>State</code>: System state machine (Idle, Running, Faulted, etc.)</li>
-<li><code>LifeCycler</code>: Startup/shutdown sequencing</li>
+<li>Makeline: Central coordinator, config hot-reload</li>
+<li>MachineConfig: Provides config to other modules</li>
+<li>State: System state machine (Idle, Running, Faulted)</li>
+<li>LifeCycler: Startup/shutdown sequencing</li>
 </ul>
-<p><strong>Integration</strong>:</p>
-<ul>
-<li><code>Api</code>: REST API for external systems</li>
-<li><code>PartnerApi</code>, <code>PartnerWebhook</code>: Partner integrations</li>
-<li><code>Telemetry</code>: Metrics collection and reporting</li>
-<li><code>Datalog</code>: Event logging to database</li>
-</ul>
-<p><strong>Fault handling</strong>:</p>
-<ul>
-<li><code>Fault</code>: Fault aggregation and display</li>
-<li><code>Interlock</code>: Safety interlocks (door sensors, emergency stop)</li>
-<li><code>CabinetMonitor</code>: Monitors cabinet health</li>
-</ul>
-<p><strong>Hardware interfaces</strong>:</p>
-<ul>
-<li><code>Discovery</code>: USB device discovery</li>
-<li><code>Echo</code>: Hardware echo/test module</li>
-<li><code>RfidClient</code>: RFID reader integration</li>
-<li><code>Tracker</code>: Order item tracking</li>
-<li><code>BowlRecovery</code>: Handles bowl errors/recovery</li>
-</ul>
+<p><strong>Integration</strong>: Api (REST), PartnerApi/Webhook, Telemetry, Datalog</p>
+<p><strong>Fault handling</strong>: Fault (aggregation), Interlock (safety interlocks), CabinetMonitor</p>
+<p><strong>Hardware interfaces</strong>: Discovery (USB), RfidClient, Tracker, BowlRecovery</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="16" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="graph-structure-deep-dive">Graph Structure Deep-Dive</h2>
 <p><strong>Graph representation</strong>: Directed acyclic graph (DAG)</p>
-<p><strong>Node types</strong>:</p>
-<ul>
-<li><code>Root</code> (single)</li>
-<li><code>Cabinet(CabinetKind)</code> (1-4 nodes)</li>
-<li><code>Device(DeviceKind)</code> (variable count)</li>
-<li><code>Module(module_data)</code> (40-100+ nodes)</li>
-</ul>
+<p><strong>Node types</strong>: Root (1) → Cabinet(CabinetKind) (1-4) → Device(DeviceKind) (variable) → Module(module_data) (40-100+) → Child modules</p>
 <p><strong>Edges</strong>: Parent → child relationships</p>
-<ul>
-<li>Root → Cabinets</li>
-<li>Cabinet → Devices</li>
-<li>Device → Modules</li>
-<li>Module → Child modules</li>
-</ul>
 <p><strong>Why parent-child?</strong></p>
 <ul>
-<li>Config inheritance: Children can reference parent config</li>
-<li>Logical grouping: All modules in a device share context</li>
+<li>Config inheritance: Children reference parent config</li>
+<li>Logical grouping: Modules in device share context</li>
 <li>Traversal: Walk graph to find modules by type/location</li>
-<li>Validation: Ensure required modules exist in correct hierarchy</li>
+<li>Validation: Ensure required modules exist</li>
 </ul>
-<p><strong>Graph traversal uses</strong>:</p>
-<ul>
-<li>Planner: Find all dispensers in cabinet 2</li>
-<li>Config validation: Ensure each cabinet has required devices</li>
-<li>Visualization: Explorer UI shows graph structure</li>
-<li>Diffing: Compare graphs to find changes</li>
-</ul>
-<p><strong>makeline.json contains</strong>:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;graph&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;nodes&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>Root<span class="hljs-punctuation">,</span> Cabinet<span class="hljs-punctuation">,</span> Device<span class="hljs-punctuation">,</span> Module<span class="hljs-punctuation">,</span> ...<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;edges&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>(<span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span>)<span class="hljs-punctuation">,</span> (<span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span>)<span class="hljs-punctuation">,</span> ...<span class="hljs-punctuation">]</span>
-  <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>Numbered instances created during expansion</strong>: generator walks graph, assigns numbers per ModuleKind (buffer-1, buffer-2, dispenser-1, ..., dispenser-12)</p>
+<p><strong>Graph traversal uses</strong>: Planner finds all dispensers, config validation, Explorer visualization, diffing for hot-reload</p>
+<p><strong>makeline.json contains</strong>: <code>{ &quot;graph&quot;: { &quot;nodes&quot;: [...], &quot;edges&quot;: [(0,1), (1,2), ...] }}</code></p>
+<p><strong>Numbered instances</strong>: Generator walks graph, assigns numbers per ModuleKind (buffer-1, buffer-2, dispenser-1...dispenser-12)</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="17" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="generator-expansion-process">Generator Expansion Process</h2>
@@ -397,29 +335,23 @@ profiles/                  # Source + generated
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="18" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="module-sections-reference">Module Sections Reference</h2>
-<p>Different modules have different section names. Common sections:</p>
+<p>Different modules have different section names:</p>
 <p><strong>Buffer modules</strong>: <code>configuration</code></p>
 <ul>
-<li>Fields: <code>motion_timeout_ms</code>, <code>homing_velocity</code>, <code>home_to_lower_mrad</code>, etc.</li>
+<li>Fields: motion_timeout_ms, homing_velocity, home_to_lower_mrad</li>
 </ul>
 <p><strong>Dispenser modules</strong>: <code>inputs</code>, <code>outputs</code></p>
 <ul>
-<li><code>inputs</code>: <code>assigned_ingredient_id</code>, <code>dispenser_kind</code></li>
-<li><code>outputs</code>: Runtime state (read-only)</li>
+<li>inputs: assigned_ingredient_id, dispenser_kind</li>
+<li>outputs: Runtime state (read-only)</li>
 </ul>
 <p><strong>Lifecycler module</strong>: <code>configuration</code>, <code>light</code></p>
 <ul>
-<li><code>configuration</code>: Lifecycle timing and fault handling</li>
-<li><code>light</code>: Zone mappings for visual feedback</li>
+<li>configuration: Lifecycle timing, fault handling</li>
+<li>light: Zone mappings for visual feedback</li>
 </ul>
-<p><strong>Follower module</strong>: <code>configuration</code></p>
-<ul>
-<li>Load verification, taring, dispenser install timeout</li>
-</ul>
-<p><strong>HVAC modules</strong>: <code>configuration</code></p>
-<ul>
-<li>Temperature setpoints, fan controls</li>
-</ul>
+<p><strong>Follower</strong>: <code>configuration</code> (load verification, taring, dispenser install timeout)</p>
+<p><strong>HVAC</strong>: <code>configuration</code> (temperature setpoints, fan controls)</p>
 <p><strong>To find all sections</strong>: Open <code>profiles/{preset}/makeline.json</code>, search for module by owner name, inspect <code>&quot;sections&quot;:</code> object</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="19" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
@@ -523,34 +455,24 @@ profiles/                  # Source + generated
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="23" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="hot-reload-mechanics">Hot-Reload Mechanics</h2>
-<p><strong>What triggers reload?</strong> Edit <code>profiles/{preset}.json</code> → makeline_server detects → reloads and diffs</p>
+<p><strong>What triggers reload?</strong> Edit <code>profiles/{preset}/makeline.json</code> → makeline_server detects → reloads and diffs</p>
 <p><strong>Diff algorithm</strong>:</p>
 <ol>
 <li>Load new profile, expand to graph</li>
 <li>Compare new graph vs old graph (structure + sections)</li>
 <li>Identify changed modules (section values differ)</li>
-<li>Send <code>SectionChanged</code> events to affected modules</li>
+<li>Send SectionChanged events to affected modules</li>
 <li>Modules reconfigure without restarting process</li>
 </ol>
-<p><strong>What causes module restart?</strong></p>
+<p><strong>What causes module restart?</strong> (spawner action)</p>
 <ul>
-<li>Module added/removed from graph → spawner kills/starts process</li>
-<li>Module kind changed → spawner restarts with new executable</li>
-<li>Executable path changed → spawner restarts</li>
+<li>Module added/removed from graph</li>
+<li>Module kind changed</li>
+<li>Executable path changed</li>
 </ul>
-<p><strong>What's hot-reloadable?</strong></p>
-<ul>
-<li>Section field values (timeouts, ingredients, positions)</li>
-<li>Section addition/removal</li>
-<li>Child module config</li>
-</ul>
-<p><strong>What's NOT hot-reloadable?</strong></p>
-<ul>
-<li>Adding/removing modules (requires spawner restart)</li>
-<li>Changing module kind</li>
-<li>Changing executable paths</li>
-</ul>
-<p><strong>Smart spawner</strong>: Only restarts processes with structural changes, leaves running processes alone</p>
+<p><strong>What's hot-reloadable?</strong> Section field values, section add/remove, child module config</p>
+<p><strong>What's NOT hot-reloadable?</strong> Adding/removing modules, changing module kind, executable paths</p>
+<p><strong>Smart spawner</strong>: Only restarts processes with structural changes</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="24" data-marpit-pagination-total="28" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="custom-layers">Custom Layers</h2>
@@ -592,29 +514,17 @@ profiles/                  # Source + generated
 <ul>
 <li>Executable paths, args, environment variables for each module</li>
 <li><code>generate-makeline</code>: Includes makeline_server references (enables hot-reload)</li>
-<li><code>generate</code>: Includes machine_config references only (legacy, no hot-reload)</li>
+<li><code>generate</code>: Includes machine_config references only (no hot-reload)</li>
 </ul>
 <p><strong>makeline.json</strong>: Expanded module graph</p>
 <ul>
-<li>Lives in <code>profiles/{preset}/makeline.json</code> (not generated!)</li>
+<li>Lives in <code>profiles/{preset}/makeline.json</code> (generated here, not in generated/ dir)</li>
 <li>Contains all module instances with their sections</li>
 <li>Watched by makeline_server for changes (triggers hot-reload)</li>
 </ul>
-<p><strong>config.json</strong>: Machine config for planner/sequencer</p>
-<ul>
-<li>Graph representation used by assembly planning</li>
-<li>Generated from makeline.json</li>
-</ul>
-<p><strong>watch.json</strong>: Message trigger configuration</p>
-<ul>
-<li>Defines triggers based on IPC message patterns</li>
-<li>Used by watch_server for message-based automation</li>
-</ul>
-<p><strong>simulation.json</strong>: Copy of source profile</p>
-<ul>
-<li>Regenerated in <code>generated/</code> on every generation</li>
-<li>Don't edit - use <code>profiles/simulation.json</code> instead</li>
-</ul>
+<p><strong>config.json</strong>: Machine config for planner/sequencer, generated from makeline.json</p>
+<p><strong>watch.json</strong>: Message trigger configuration for watch_server automation</p>
+<p><strong>simulation.json</strong>: Copy of source profile in <code>generated/</code>, don't edit - use <code>profiles/simulation.json</code> instead</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="27" data-class="lead invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="lead invert" data-marpit-pagination="27" data-marpit-pagination-total="28" style="--class:lead invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="system-rules--presets">System Rules &amp; Presets</h2>
@@ -622,7 +532,7 @@ profiles/                  # Source + generated
 <ul>
 <li>Adds hot-reload support via makeline_server in spawner.json</li>
 </ul>
-<p><strong>Watch mechanism</strong>: Only <code>profiles/{preset}.json</code> triggers 2.5s auto-reload</p>
+<p><strong>Watch mechanism</strong>: <code>profiles/{preset}/makeline.json</code> triggers 2.5s auto-reload</p>
 <p><strong>Spawner behavior</strong>: Smart restart - only kills/restarts processes with config changes</p>
 <p><strong>Never edit</strong>: <code>generated/</code> directory - gets overwritten on every generation</p>
 <p><strong>Available presets</strong>:</p>
@@ -637,7 +547,7 @@ profiles/                  # Source + generated
 <h1 id="thats-it">That's It</h1>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-bash">just generate-makeline simulation [line_build]
 just simulate simulation
-<span class="hljs-comment"># Edit profiles/simulation.json</span>
+<span class="hljs-comment"># Edit profiles/simulation/makeline.json for hot-reload</span>
 </code></pre>
 <p><strong>Key features</strong>:</p>
 <ul>
@@ -646,7 +556,7 @@ just simulate simulation
 <li>Line builds (test/prod switching)</li>
 <li>Auto backups (rollback ready)</li>
 </ul>
-<p><strong>Remember</strong>: <code>profiles/</code> not <code>generated/</code></p>
+<p><strong>Remember</strong>: Edit <code>profiles/{preset}/makeline.json</code> for hot-reload, NOT <code>generated/</code></p>
 </section>
 <script>!function(){"use strict";const t={h1:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"1"},style:"display: block; font-size: 2em; margin-block-start: 0.67em; margin-block-end: 0.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h2:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"2"},style:"display: block; font-size: 1.5em; margin-block-start: 0.83em; margin-block-end: 0.83em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h3:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"3"},style:"display: block; font-size: 1.17em; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h4:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"4"},style:"display: block; margin-block-start: 1.33em; margin-block-end: 1.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h5:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"5"},style:"display: block; font-size: 0.83em; margin-block-start: 1.67em; margin-block-end: 1.67em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},h6:{proto:()=>HTMLHeadingElement,attrs:{role:"heading","aria-level":"6"},style:"display: block; font-size: 0.67em; margin-block-start: 2.33em; margin-block-end: 2.33em; margin-inline-start: 0px; margin-inline-end: 0px; font-weight: bold;"},span:{proto:()=>HTMLSpanElement},pre:{proto:()=>HTMLElement,style:"display: block; font-family: monospace; white-space: pre; margin: 1em 0; --marp-auto-scaling-white-space: pre;"}},e="data-marp-auto-scaling-wrapper",i="data-marp-auto-scaling-svg",n="data-marp-auto-scaling-container";class s extends HTMLElement{constructor(){super(),this.svgPreserveAspectRatio="xMinYMid meet";const t=t=>([e])=>{const{width:i,height:n}=e.contentRect;this[t]={width:i,height:n},this.updateSVGRect()};this.attachShadow({mode:"open"}),this.containerObserver=new ResizeObserver(t("containerSize")),this.wrapperObserver=new ResizeObserver(((...e)=>{t("wrapperSize")(...e),this.flushSvgDisplay()}))}static get observedAttributes(){return["data-downscale-only"]}connectedCallback(){var t,s,o,r,a;this.shadowRoot.innerHTML=`\n<style>\n  svg[${i}] { display: block; width: 100%; height: auto; vertical-align: top; }\n  span[${n}] { display: table; white-space: var(--marp-auto-scaling-white-space, nowrap); width: max-content; }\n</style>\n<div ${e}>\n  <svg part="svg" ${i}>\n    <foreignObject><span ${n}><slot></slot></span></foreignObject>\n  </svg>\n</div>\n    `.split(/\n\s*/).join(""),this.wrapper=null!==(t=this.shadowRoot.querySelector(`div[${e}]`))&&void 0!==t?t:void 0;const l=this.svg;this.svg=null!==(o=null===(s=this.wrapper)||void 0===s?void 0:s.querySelector(`svg[${i}]`))&&void 0!==o?o:void 0,this.svg!==l&&(this.svgComputedStyle=this.svg?window.getComputedStyle(this.svg):void 0),this.container=null!==(a=null===(r=this.svg)||void 0===r?void 0:r.querySelector(`span[${n}]`))&&void 0!==a?a:void 0,this.observe()}disconnectedCallback(){this.svg=void 0,this.svgComputedStyle=void 0,this.wrapper=void 0,this.container=void 0,this.observe()}attributeChangedCallback(){this.observe()}flushSvgDisplay(){const{svg:t}=this;t&&(t.style.display="inline",requestAnimationFrame((()=>{t.style.display=""})))}observe(){this.containerObserver.disconnect(),this.wrapperObserver.disconnect(),this.wrapper&&this.wrapperObserver.observe(this.wrapper),this.container&&this.containerObserver.observe(this.container),this.svgComputedStyle&&this.observeSVGStyle(this.svgComputedStyle)}observeSVGStyle(t){const e=()=>{const i=(()=>{const e=t.getPropertyValue("--preserve-aspect-ratio");if(e)return e.trim();return`x${(({textAlign:t,direction:e})=>{if(t.endsWith("left"))return"Min";if(t.endsWith("right"))return"Max";if("start"===t||"end"===t){let i="rtl"===e;return"end"===t&&(i=!i),i?"Max":"Min"}return"Mid"})(t)}YMid meet`})();i!==this.svgPreserveAspectRatio&&(this.svgPreserveAspectRatio=i,this.updateSVGRect()),t===this.svgComputedStyle&&requestAnimationFrame(e)};e()}updateSVGRect(){var t,e,i,n,s,o,r;let a=Math.ceil(null!==(e=null===(t=this.containerSize)||void 0===t?void 0:t.width)&&void 0!==e?e:0);const l=Math.ceil(null!==(n=null===(i=this.containerSize)||void 0===i?void 0:i.height)&&void 0!==n?n:0);void 0!==this.dataset.downscaleOnly&&(a=Math.max(a,null!==(o=null===(s=this.wrapperSize)||void 0===s?void 0:s.width)&&void 0!==o?o:0));const c=null===(r=this.svg)||void 0===r?void 0:r.querySelector(":scope > foreignObject");if(null==c||c.setAttribute("width",`${a}`),null==c||c.setAttribute("height",`${l}`),this.svg&&(this.svg.setAttribute("viewBox",`0 0 ${a} ${l}`),this.svg.setAttribute("preserveAspectRatio",this.svgPreserveAspectRatio),this.svg.style.height=a<=0||l<=0?"0":""),this.container){const t=this.svgPreserveAspectRatio.toLowerCase();this.container.style.marginLeft=t.startsWith("xmid")||t.startsWith("xmax")?"auto":"0",this.container.style.marginRight=t.startsWith("xmi")?"auto":"0"}}}const o=(t,{attrs:e={},style:i})=>class extends t{constructor(...t){super(...t);for(const[t,i]of Object.entries(e))this.hasAttribute(t)||this.setAttribute(t,i);this.attachShadow({mode:"open"})}static get observedAttributes(){return["data-auto-scaling"]}connectedCallback(){this._update()}attributeChangedCallback(){this._update()}_update(){const t=i?`<style>:host { ${i} }</style>`:"";let e="<slot></slot>";const{autoScaling:n}=this.dataset;if(void 0!==n){e=`<marp-auto-scaling exportparts="svg:auto-scaling" ${"downscale-only"===n?"data-downscale-only":""}>${e}</marp-auto-scaling>`}this.shadowRoot.innerHTML=t+e}};let r;const a=Symbol();let l;const c="marpitSVGPolyfill:setZoomFactor,",d=Symbol(),g=Symbol();const h=()=>{const t="Apple Computer, Inc."===navigator.vendor,e=t?[u]:[],i={then:e=>(t?(async()=>{if(void 0===l){const t=document.createElement("canvas");t.width=10,t.height=10;const e=t.getContext("2d"),i=new Image(10,10),n=new Promise((t=>{i.addEventListener("load",(()=>t()))}));i.crossOrigin="anonymous",i.src="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2210%22%20height%3D%2210%22%20viewBox%3D%220%200%201%201%22%3E%3CforeignObject%20width%3D%221%22%20height%3D%221%22%20requiredExtensions%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%3E%3Cdiv%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%22%20style%3D%22width%3A%201px%3B%20height%3A%201px%3B%20background%3A%20red%3B%20position%3A%20relative%22%3E%3C%2Fdiv%3E%3C%2FforeignObject%3E%3C%2Fsvg%3E",await n,e.drawImage(i,0,0),l=e.getImageData(5,5,1,1).data[3]<128}return l})().then((t=>{null==e||e(t?[u]:[])})):null==e||e([]),i)};return Object.assign(e,i)};let p,m;function u(t){const e="object"==typeof t&&t.target||document,i="object"==typeof t?t.zoom:t;window[g]||(Object.defineProperty(window,g,{configurable:!0,value:!0}),document.body.style.zoom=1.0001,document.body.offsetHeight,document.body.style.zoom=1,window.addEventListener("message",(({data:t,origin:e})=>{if(e===window.origin)try{if(t&&"string"==typeof t&&t.startsWith(c)){const[,e]=t.split(","),i=Number.parseFloat(e);Number.isNaN(i)||(m=i)}}catch(t){console.error(t)}})));let n=!1;Array.from(e.querySelectorAll("svg[data-marpit-svg]"),(t=>{var e,s,o,r;t.style.transform||(t.style.transform="translateZ(0)");const a=i||m||t.currentScale||1;p!==a&&(p=a,n=a);const l=t.getBoundingClientRect(),{length:c}=t.children;for(let i=0;i<c;i+=1){const n=t.children[i];if(n.getScreenCTM){const t=n.getScreenCTM();if(t){const i=null!==(s=null===(e=n.x)||void 0===e?void 0:e.baseVal.value)&&void 0!==s?s:0,c=null!==(r=null===(o=n.y)||void 0===o?void 0:o.baseVal.value)&&void 0!==r?r:0,d=n.children.length;for(let e=0;e<d;e+=1){const s=n.children[e];if("SECTION"===s.tagName){const{style:e}=s;e.transformOrigin||(e.transformOrigin=`${-i}px ${-c}px`),e.transform=`scale(${a}) matrix(${t.a}, ${t.b}, ${t.c}, ${t.d}, ${t.e-l.left}, ${t.f-l.top}) translateZ(0.0001px)`;break}}}}}})),!1!==n&&Array.from(e.querySelectorAll("iframe"),(({contentWindow:t})=>{null==t||t.postMessage(`${c}${n}`,"null"===window.origin?"*":window.origin)}))}function v({once:t=!1,target:e=document}={}){const i=function(t=document){if(t[d])return t[d];let e=!0;const i=()=>{e=!1,delete t[d]};Object.defineProperty(t,d,{configurable:!0,value:i});let n=[],s=!1;(async()=>{try{n=await h()}finally{s=!0}})();const o=()=>{for(const e of n)e({target:t});s&&0===n.length||e&&window.requestAnimationFrame(o)};return o(),i}(e);return t?(i(),()=>{}):i}p=1,m=void 0;const b=Symbol(),w=(e=document)=>{if("undefined"==typeof window)throw new Error("Marp Core's browser script is valid only in browser context.");if(((e=document)=>{const i=window[a];i||customElements.define("marp-auto-scaling",s);for(const n of Object.keys(t)){const s=`marp-${n}`,a=t[n].proto();null!=r||(r=!!document.createElement("div",{is:"marp-auto-scaling"}).outerHTML.startsWith("<div is")),r&&a!==HTMLElement?i||customElements.define(s,o(a,{style:t[n].style}),{extends:n}):(i||customElements.define(s,o(HTMLElement,t[n])),e.querySelectorAll(`${n}[is="${s}"]`).forEach((t=>{t.outerHTML=t.outerHTML.replace(new RegExp(`^<${n}`,"i"),`<${s}`).replace(new RegExp(`</${n}>$`,"i"),`</${s}>`)})))}window[a]=!0})(e),e[b])return e[b];const i=v({target:e}),n=()=>{i(),delete e[b]},l=Object.assign(n,{cleanup:n,update:()=>w(e)});return Object.defineProperty(e,b,{configurable:!0,value:l}),l},y=document.currentScript;w(y?y.getRootNode():document)}();
 </script></foreignObject></svg></div><script>/*!! License: https://unpkg.com/@marp-team/marp-cli@3.0.2/lib/bespoke.js.LICENSE.txt */
