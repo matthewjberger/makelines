@@ -88,300 +88,6 @@ profiles/                  # Edit here
 <p><strong>Add these edits to a layer</strong> in <code>layer_groups</code> → Save → Hot-reloads in 2.5s</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="7" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="7" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="layer-edit-types---part-1">Layer Edit Types - Part 1</h2>
-<p><strong>EditSectionField</strong>: Change single config field (most common)</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;EditSectionField&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;buffer-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;section_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;configuration&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;field_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;motion_timeout_ms&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;field_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20000</span>
-<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>AssignSections</strong>: Replace entire sections (multiple related fields)</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignSections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;lifecycler-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;sections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;configuration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;cooldown_complete_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">24000</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;timeout_fault_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">600000</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;light&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;mappings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;light&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;light-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;zone_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
-  <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>When to use</strong>: EditSectionField for single values, AssignSections for multiple related fields</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="8" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="layer-edit-types---part-2">Layer Edit Types - Part 2</h2>
-<p><strong>AssignDispensers</strong>: Populate all dispensers for cabinets</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignDispensers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;dispensers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;cabinet_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;dispenser_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;ingredient_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;black_beans&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;x&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;y&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;z&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Auger&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;cabinet_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;dispenser_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;ingredient_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;rice&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;x&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.1</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;y&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;z&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Auger&quot;</span> <span class="hljs-punctuation">}</span>
-  <span class="hljs-punctuation">]</span>
-<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>OmitModules</strong>: Remove modules from graph (testing/debugging)</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;OmitModules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;identities&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-  <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hvac-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;dispenser-5&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>AssignGlobalConfiguration</strong>: Set global makeline config</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignGlobalConfiguration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;assignment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;OperationMode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Production&quot;</span> <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
-</code></pre>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="9" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="module-sections-reference">Module Sections Reference</h2>
-<p>Different modules have different section names. Common sections:</p>
-<p><strong>Buffer modules</strong>: <code>configuration</code></p>
-<ul>
-<li>Fields: <code>motion_timeout_ms</code>, <code>homing_velocity</code>, <code>home_to_lower_mrad</code>, etc.</li>
-</ul>
-<p><strong>Dispenser modules</strong>: <code>inputs</code>, <code>outputs</code></p>
-<ul>
-<li><code>inputs</code>: <code>assigned_ingredient_id</code>, <code>dispenser_kind</code></li>
-<li><code>outputs</code>: Runtime state (read-only)</li>
-</ul>
-<p><strong>Lifecycler module</strong>: <code>configuration</code>, <code>light</code></p>
-<ul>
-<li><code>configuration</code>: Lifecycle timing and fault handling</li>
-<li><code>light</code>: Zone mappings for visual feedback</li>
-</ul>
-<p><strong>Follower module</strong>: <code>configuration</code></p>
-<ul>
-<li>Load verification, taring, dispenser install timeout</li>
-</ul>
-<p><strong>HVAC modules</strong>: <code>configuration</code></p>
-<ul>
-<li>Temperature setpoints, fan controls</li>
-</ul>
-<p><strong>To find all sections</strong>: Open <code>profiles/{preset}/makeline.json</code>, search for module by owner name, inspect <code>&quot;sections&quot;:</code> object</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="10" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="custom-layers">Custom Layers</h2>
-<p><strong>Dev tweaks without modifying preset profiles</strong></p>
-<p><code>just generate-makeline-custom simulation</code> → creates <code>custom_layers.json</code></p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;metadata&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Faster Buffer Motion&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;edits&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;EditSectionField&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-      <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;buffer-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;section_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;configuration&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;field_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;motion_timeout_ms&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;field_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10000</span>
-    <span class="hljs-punctuation">}</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
-<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
-</code></pre>
-<p>Applied on top of preset layers → isolates your local changes</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="11" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="line-builds--switching">Line Builds &amp; Switching</h2>
-<p><strong>One profile, multiple configs</strong> via different layer combinations</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-attr">&quot;line_builds&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;production&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;layer_groups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;base&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;prod_ingredients&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;testing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;layer_groups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;base&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;test_ingredients&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>At generation</strong>: <code>just generate-makeline simulation testing</code></p>
-<p><strong>At runtime</strong> (Explorer):</p>
-<ul>
-<li><code>AvailableLineBuilds</code> → see options</li>
-<li><code>SelectLineBuild { line_build_name: &quot;production&quot; }</code> → switch (10-50ms)</li>
-</ul>
-<p>Switch test <img class="emoji" draggable="false" alt="↔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/2194.svg" data-marp-twemoji=""/> production ingredients, zero downtime</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="12" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="how-targeting-works">How Targeting Works</h2>
-<p><strong>Identity structure</strong>: <code>{ owner: &quot;module-name&quot;, subject: &quot;target&quot; }</code></p>
-<p><strong>owner</strong>: Module instance name (numbered instances from graph expansion)</p>
-<ul>
-<li><code>&quot;buffer-1&quot;</code>, <code>&quot;buffer-2&quot;</code> (dispense cabinet buffers)</li>
-<li><code>&quot;lifecycler-1&quot;</code> (system singleton)</li>
-<li><code>&quot;lift-1&quot;</code> (lift cabinet)</li>
-<li><code>&quot;dispenser-1&quot;</code> through <code>&quot;dispenser-12&quot;</code> (v5111) or <code>&quot;dispenser-18&quot;</code> (v5112)</li>
-</ul>
-<p><strong>subject</strong>: Config target within the module hierarchy</p>
-<ul>
-<li><code>&quot;self&quot;</code> → module's own configuration sections (most common)</li>
-<li><code>&quot;motor-1&quot;</code> → first child motor module</li>
-<li><code>&quot;home-sensor&quot;</code>, <code>&quot;upper-sensor&quot;</code>, <code>&quot;lower-sensor&quot;</code> → child sensors</li>
-<li><code>&quot;rfid&quot;</code>, <code>&quot;loadcell&quot;</code> → child hardware modules</li>
-</ul>
-<p><strong>Module hierarchy examples</strong>:</p>
-<p><code>buffer-1</code> has children: <code>motor-1</code>, <code>home-sensor</code>, <code>upper-sensor</code>, <code>lower-sensor</code></p>
-<ul>
-<li>Edit buffer config: <code>{ owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }</code></li>
-<li>Edit buffer motor: <code>{ owner: &quot;buffer-1&quot;, subject: &quot;motor-1&quot; }</code></li>
-</ul>
-<p><code>dispenser-3</code> has children: <code>motor</code>, <code>rfid</code>, <code>loadcell</code></p>
-<ul>
-<li>Edit dispenser config: <code>{ owner: &quot;dispenser-3&quot;, subject: &quot;self&quot; }</code></li>
-<li>Edit dispenser RFID: <code>{ owner: &quot;dispenser-3&quot;, subject: &quot;rfid&quot; }</code></li>
-</ul>
-<p><strong>Finding modules</strong>: Open <code>profiles/{preset}/makeline.json</code>, search for <code>&quot;owner&quot;:</code> to see all instances and their children</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="13" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="generator-expansion-process">Generator Expansion Process</h2>
-<p><strong>Step 1</strong>: Read <code>profiles/{preset}.json</code> → get layouts, layer_groups, line_builds</p>
-<p><strong>Step 2</strong>: Select line_build (from CLI or &quot;default&quot;) → determines layout + which layer_groups to apply</p>
-<p><strong>Step 3</strong>: Expand layout into graph:</p>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code>For each CabinetKind:
-  cabinet_kind.devices() → Vec&lt;DeviceKind&gt;
-  For each DeviceKind:
-    device_kind.modules() → Vec&lt;ModuleKind&gt;
-    Create numbered instances (buffer-1, buffer-2, ...)
-</code></pre>
-<p><strong>Step 4</strong>: Apply layers sequentially (order matters!):</p>
-<ul>
-<li>Each layer contains edits (EditSectionField, AssignSections, etc.)</li>
-<li>Later layers override earlier layers</li>
-<li>Edits target specific modules by Identity</li>
-</ul>
-<p><strong>Step 5</strong>: Write output files:</p>
-<ul>
-<li><code>profiles/{preset}/makeline.json</code> - Expanded graph (watched for hot-reload)</li>
-<li><code>generated/{preset}/simulation.json</code> - Copy of source (don't edit)</li>
-<li><code>generated/{preset}/spawner.json</code> - Process launch configs</li>
-<li><code>generated/{preset}/config.json</code> - Machine config</li>
-<li><code>generated/{preset}/watch.json</code> - File watch config</li>
-</ul>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="14" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="generated-files-explained">Generated Files Explained</h2>
-<p><strong>spawner.json</strong>: Process launch configuration</p>
-<ul>
-<li>Executable paths, args, environment variables for each module</li>
-<li><code>generate-makeline</code>: Includes makeline_server references (enables hot-reload)</li>
-<li><code>generate</code>: Includes machine_config references only (legacy, no hot-reload)</li>
-</ul>
-<p><strong>makeline.json</strong>: Expanded module graph</p>
-<ul>
-<li>Lives in <code>profiles/{preset}/makeline.json</code> (not generated!)</li>
-<li>Contains all module instances with their sections</li>
-<li>Watched by makeline_server for changes (triggers hot-reload)</li>
-</ul>
-<p><strong>config.json</strong>: Machine config for planner/sequencer</p>
-<ul>
-<li>Graph representation used by assembly planning</li>
-<li>Generated from makeline.json</li>
-</ul>
-<p><strong>watch.json</strong>: File watch configuration</p>
-<ul>
-<li>Tells watch_server which files to monitor</li>
-<li>Points to <code>profiles/{preset}.json</code> (source profile)</li>
-</ul>
-<p><strong>simulation.json</strong>: Copy of source profile</p>
-<ul>
-<li>Regenerated in <code>generated/</code> on every generation</li>
-<li>Don't edit - use <code>profiles/simulation.json</code> instead</li>
-</ul>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="15" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="system-rules--presets">System Rules &amp; Presets</h2>
-<p><strong>Always use</strong>: <code>just generate-makeline</code> (not <code>just generate</code>)</p>
-<ul>
-<li>Adds hot-reload support via makeline_server in spawner.json</li>
-</ul>
-<p><strong>Watch mechanism</strong>: Only <code>profiles/{preset}.json</code> triggers 2.5s auto-reload</p>
-<p><strong>Spawner behavior</strong>: Smart restart - only kills/restarts processes with config changes</p>
-<p><strong>Never edit</strong>: <code>generated/</code> directory - gets overwritten on every generation</p>
-<p><strong>Available presets</strong>:</p>
-<ul>
-<li><code>simulation</code> - Mock hardware, no real devices</li>
-<li><code>v5111</code> - 4 cabinets, 12 dispensers</li>
-<li><code>v5112</code> - 5 cabinets, 18 dispensers</li>
-<li><code>cabinet_tester</code> - ISO validation testing</li>
-</ul>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="16" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="architecture-rationale">Architecture Rationale</h2>
-<p><strong>Why this design?</strong></p>
-<p><strong>Hardware abstraction</strong>: Physical machines have cabinets → devices → hardware modules. Software mirrors this hierarchy so config matches physical reality.</p>
-<p><strong>Hot-reload requirement</strong>: Must change config without stopping production. Graph-based design allows:</p>
-<ul>
-<li>Diff detection (compare old vs new graph)</li>
-<li>Selective module restart (only changed modules)</li>
-<li>Process isolation (spawner manages independent processes)</li>
-</ul>
-<p><strong>Distributed system</strong>: Each module = separate process communicating via IPC</p>
-<ul>
-<li>Fault isolation: One module crash doesn't kill entire system</li>
-<li>Independent scaling: Can run modules on different machines</li>
-<li>Hot-reload: Restart one process without affecting others</li>
-</ul>
-<p><strong>Configuration flexibility</strong>: Layers allow:</p>
-<ul>
-<li>Base hardware config (layout expansion)</li>
-<li>Environment-specific overrides (prod vs test ingredients)</li>
-<li>Developer local tweaks (custom_layers.json)</li>
-<li>Runtime switching (line builds)</li>
-</ul>
-<p><strong>Why graph structure?</strong>: Represents parent-child relationships (cabinet contains devices, device contains modules). Traversable for planning, validation, visualization.</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="17" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="system-architecture">System Architecture</h2>
-<p><strong>Three-tier enum hierarchy</strong>: CabinetKind → DeviceKind → ModuleKind</p>
-<p>Generator expands each tier: Types define requirements → instances get created</p>
-<p><strong>CabinetKind</strong> enum (4 variants):</p>
-<ul>
-<li><code>Initial</code>, <code>Denest</code>, <code>Dispense</code>, <code>Lift</code></li>
-</ul>
-<p><strong>DeviceKind</strong> enum (10 variants):</p>
-<ul>
-<li><code>Core</code>, <code>CabinetCore</code>, <code>CabinetScreen</code>, <code>Denester</code>, <code>Dispenser</code></li>
-<li><code>Conveyance</code>, <code>DispenseFillPositioner</code>, <code>Hvac</code>, <code>Lift</code>, <code>LiftFillPositioner</code></li>
-</ul>
-<p><strong>ModuleKind</strong> enum (40+ variants):</p>
-<ul>
-<li>Software: <code>Api</code>, <code>Planner</code>, <code>Makeline</code>, <code>Fault</code>, <code>Tracker</code>, <code>State</code>, etc.</li>
-<li>Hardware: <code>Buffer</code>, <code>Dispenser</code>, <code>Lift</code>, <code>Hvac</code>, <code>Shutter</code>, <code>Denest</code></li>
-<li>Low-level: <code>Motor</code>, <code>Gpio</code>, <code>LoadCell</code>, <code>Thermistor</code>, <code>Rfid</code>, <code>TimeOfFlight</code></li>
-</ul>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="18" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="cabinet-%E2%86%92-device-mappings">Cabinet → Device Mappings</h2>
-<p><strong>Initial</strong> cabinet (system-wide services):</p>
-<ul>
-<li><code>Core</code> device → 20 modules</li>
-</ul>
-<p><strong>Denest</strong> cabinet (bowl handling):</p>
-<ul>
-<li><code>CabinetCore</code>, <code>Conveyance</code>, <code>Denester</code>, <code>CabinetScreen</code></li>
-</ul>
-<p><strong>Dispense</strong> cabinet (ingredient dispensing):</p>
-<ul>
-<li><code>CabinetCore</code>, <code>Hvac</code>, <code>DispenseFillPositioner</code></li>
-<li>Plus N × <code>Dispenser</code> devices (12 for v5111, 18 for v5112)</li>
-</ul>
-<p><strong>Lift</strong> cabinet (bowl presentation):</p>
-<ul>
-<li><code>CabinetCore</code>, <code>LiftFillPositioner</code>, <code>Lift</code>, <code>CabinetScreen</code></li>
-</ul>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="19" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="device-%E2%86%92-module-details">Device → Module Details</h2>
-<p><strong>Core</strong> device (Initial cabinet only) - 20 system modules:</p>
-<ul>
-<li><code>Api-1</code>, <code>BowlRecovery-1</code>, <code>CabinetMonitor-1</code>, <code>Datalog-1</code></li>
-<li><code>Discovery-1</code>, <code>Echo-1</code>, <code>Fault-1</code>, <code>Follower-1</code></li>
-<li><code>Interlock-1</code>, <code>LifeCycler-1</code>, <code>MachineConfig-1</code>, <code>Makeline-1</code></li>
-<li><code>PartnerApi-1</code>, <code>PartnerWebhook-1</code>, <code>Planner-1</code>, <code>Preprocessor-1</code></li>
-<li><code>RfidClient-1</code>, <code>Sequencer-1</code>, <code>State-1</code>, <code>Telemetry-1</code>, <code>Tracker-1</code></li>
-</ul>
-<p><strong>DispenseFillPositioner</strong> device (one per dispense cabinet):</p>
-<ul>
-<li><code>Buffer</code>, <code>Conveyance</code>, <code>Shutter</code>, <code>Duc</code></li>
-</ul>
-<p><strong>Dispenser</strong> device (12-18 instances):</p>
-<ul>
-<li><code>Duc</code> only (actual dispenser hardware)</li>
-</ul>
-<p><strong>Module children</strong>: Buffer has Motor + Sensors; Dispenser has Motor + Rfid + LoadCell</p>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="20" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="physical-hardware-context">Physical Hardware Context</h2>
 <p><strong>Real-world machine structure drives software design:</strong></p>
 <p><strong>Cabinet</strong> = Physical enclosure unit</p>
@@ -409,62 +115,92 @@ profiles/                  # Edit here
 </ul>
 <p><strong>Physical flow</strong>: Bowl enters Denest → unstacked → moved to Dispense cabinet → positioned under dispensers → ingredients added → moved to Lift → presented to customer</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="21" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="module-communication">Module Communication</h2>
-<p><strong>IPC via ZeroMQ</strong>: Each module = separate process on pub/sub network</p>
-<p><strong>Identity for routing</strong>: Messages addressed by <code>{ owner, subject }</code>:</p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="8" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="architecture-rationale">Architecture Rationale</h2>
+<p><strong>Why this design?</strong></p>
+<p><strong>Hardware abstraction</strong>: Physical machines have cabinets → devices → hardware modules. Software mirrors this hierarchy so config matches physical reality.</p>
+<p><strong>Hot-reload requirement</strong>: Must change config without stopping production. Graph-based design allows:</p>
 <ul>
-<li><code>{ owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }</code> → message to buffer-1 process</li>
-<li><code>{ owner: &quot;buffer-1&quot;, subject: &quot;motor-1&quot; }</code> → message to buffer-1's motor child</li>
-<li>Makeline server routes based on Identity</li>
+<li>Diff detection (compare old vs new graph)</li>
+<li>Selective module restart (only changed modules)</li>
+<li>Process isolation (spawner manages independent processes)</li>
 </ul>
-<p><strong>Message types</strong>:</p>
+<p><strong>Distributed system</strong>: Each module = separate process communicating via IPC</p>
 <ul>
-<li><strong>Commands</strong>: Tell module to do something (<code>MoveToUpper</code>, <code>Dispense</code>)</li>
-<li><strong>Events</strong>: Module broadcasts state changes (<code>MotionComplete</code>, <code>SensorTriggered</code>)</li>
-<li><strong>Config changes</strong>: Hot-reload sends <code>SectionChanged</code> events</li>
+<li>Fault isolation: One module crash doesn't kill entire system</li>
+<li>Independent scaling: Can run modules on different machines</li>
+<li>Hot-reload: Restart one process without affecting others</li>
 </ul>
-<p><strong>Why Identity matters</strong>:</p>
+<p><strong>Configuration flexibility</strong>: Layers allow:</p>
 <ul>
-<li>Layers target modules by Identity</li>
-<li>IPC routing uses Identity</li>
-<li>Planner sequences using Identity</li>
-<li>Logging/debugging traces by Identity</li>
+<li>Base hardware config (layout expansion)</li>
+<li>Environment-specific overrides (prod vs test ingredients)</li>
+<li>Developer local tweaks (custom_layers.json)</li>
+<li>Runtime switching (line builds)</li>
 </ul>
-<p><strong>Contract-based</strong>: Each module type has typed contracts (buffer_contract, dispense_contract, etc.)</p>
+<p><strong>Why graph structure?</strong>: Represents parent-child relationships (cabinet contains devices, device contains modules). Traversable for planning, validation, visualization.</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="22" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="hot-reload-mechanics">Hot-Reload Mechanics</h2>
-<p><strong>What triggers reload?</strong> Edit <code>profiles/{preset}.json</code> → watch_server detects → makeline_server reloads</p>
-<p><strong>Diff algorithm</strong>:</p>
-<ol>
-<li>Load new profile, expand to graph</li>
-<li>Compare new graph vs old graph (structure + sections)</li>
-<li>Identify changed modules (section values differ)</li>
-<li>Send <code>SectionChanged</code> events to affected modules</li>
-<li>Modules reconfigure without restarting process</li>
-</ol>
-<p><strong>What causes module restart?</strong></p>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="9" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="system-architecture">System Architecture</h2>
+<p><strong>Three-tier enum hierarchy</strong>: CabinetKind → DeviceKind → ModuleKind</p>
+<p>Generator expands each tier: Types define requirements → instances get created</p>
+<p><strong>CabinetKind</strong> enum (4 variants):</p>
 <ul>
-<li>Module added/removed from graph → spawner kills/starts process</li>
-<li>Module kind changed → spawner restarts with new executable</li>
-<li>Executable path changed → spawner restarts</li>
+<li><code>Initial</code>, <code>Denest</code>, <code>Dispense</code>, <code>Lift</code></li>
 </ul>
-<p><strong>What's hot-reloadable?</strong></p>
+<p><strong>DeviceKind</strong> enum (10 variants):</p>
 <ul>
-<li>Section field values (timeouts, ingredients, positions)</li>
-<li>Section addition/removal</li>
-<li>Child module config</li>
+<li><code>Core</code>, <code>CabinetCore</code>, <code>CabinetScreen</code>, <code>Denester</code>, <code>Dispenser</code></li>
+<li><code>Conveyance</code>, <code>DispenseFillPositioner</code>, <code>Hvac</code>, <code>Lift</code>, <code>LiftFillPositioner</code></li>
 </ul>
-<p><strong>What's NOT hot-reloadable?</strong></p>
+<p><strong>ModuleKind</strong> enum (40+ variants):</p>
 <ul>
-<li>Adding/removing modules (requires spawner restart)</li>
-<li>Changing module kind</li>
-<li>Changing executable paths</li>
+<li>Software: <code>Api</code>, <code>Planner</code>, <code>Makeline</code>, <code>Fault</code>, <code>Tracker</code>, <code>State</code>, etc.</li>
+<li>Hardware: <code>Buffer</code>, <code>Dispenser</code>, <code>Lift</code>, <code>Hvac</code>, <code>Shutter</code>, <code>Denest</code></li>
+<li>Low-level: <code>Motor</code>, <code>Gpio</code>, <code>LoadCell</code>, <code>Thermistor</code>, <code>Rfid</code>, <code>TimeOfFlight</code></li>
 </ul>
-<p><strong>Smart spawner</strong>: Only restarts processes with structural changes, leaves running processes alone</p>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="23" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="10" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="cabinet-%E2%86%92-device-mappings">Cabinet → Device Mappings</h2>
+<p><strong>Initial</strong> cabinet (system-wide services):</p>
+<ul>
+<li><code>Core</code> device → 20 modules</li>
+</ul>
+<p><strong>Denest</strong> cabinet (bowl handling):</p>
+<ul>
+<li><code>CabinetCore</code>, <code>Conveyance</code>, <code>Denester</code>, <code>CabinetScreen</code></li>
+</ul>
+<p><strong>Dispense</strong> cabinet (ingredient dispensing):</p>
+<ul>
+<li><code>CabinetCore</code>, <code>Hvac</code>, <code>DispenseFillPositioner</code></li>
+<li>Plus N × <code>Dispenser</code> devices (12 for v5111, 18 for v5112)</li>
+</ul>
+<p><strong>Lift</strong> cabinet (bowl presentation):</p>
+<ul>
+<li><code>CabinetCore</code>, <code>LiftFillPositioner</code>, <code>Lift</code>, <code>CabinetScreen</code></li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="11" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="device-%E2%86%92-module-details">Device → Module Details</h2>
+<p><strong>Core</strong> device (Initial cabinet only) - 20 system modules:</p>
+<ul>
+<li><code>Api-1</code>, <code>BowlRecovery-1</code>, <code>CabinetMonitor-1</code>, <code>Datalog-1</code></li>
+<li><code>Discovery-1</code>, <code>Echo-1</code>, <code>Fault-1</code>, <code>Follower-1</code></li>
+<li><code>Interlock-1</code>, <code>LifeCycler-1</code>, <code>MachineConfig-1</code>, <code>Makeline-1</code></li>
+<li><code>PartnerApi-1</code>, <code>PartnerWebhook-1</code>, <code>Planner-1</code>, <code>Preprocessor-1</code></li>
+<li><code>RfidClient-1</code>, <code>Sequencer-1</code>, <code>State-1</code>, <code>Telemetry-1</code>, <code>Tracker-1</code></li>
+</ul>
+<p><strong>DispenseFillPositioner</strong> device (one per dispense cabinet):</p>
+<ul>
+<li><code>Buffer</code>, <code>Conveyance</code>, <code>Shutter</code>, <code>Duc</code></li>
+</ul>
+<p><strong>Dispenser</strong> device (12-18 instances):</p>
+<ul>
+<li><code>Duc</code> only (actual dispenser hardware)</li>
+</ul>
+<p><strong>Module children</strong>: Buffer has Motor + Sensors; Dispenser has Motor + Rfid + LoadCell</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="12" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="core-modules-overview">Core Modules Overview</h2>
 <p><strong>System orchestration</strong>:</p>
 <ul>
@@ -502,7 +238,7 @@ profiles/                  # Edit here
 <li><code>BowlRecovery</code>: Handles bowl errors/recovery</li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-class="lead invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="lead invert" data-marpit-pagination="24" data-marpit-pagination-total="25" style="--class:lead invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="13" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="graph-structure-deep-dive">Graph Structure Deep-Dive</h2>
 <p><strong>Graph representation</strong>: Directed acyclic graph (DAG)</p>
 <p><strong>Node types</strong>:</p>
@@ -542,6 +278,270 @@ profiles/                  # Edit here
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <p><strong>Numbered instances created during expansion</strong>: generator walks graph, assigns numbers per ModuleKind (buffer-1, buffer-2, dispenser-1, ..., dispenser-12)</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="14" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="14" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="generator-expansion-process">Generator Expansion Process</h2>
+<p><strong>Step 1</strong>: Read <code>profiles/{preset}.json</code> → get layouts, layer_groups, line_builds</p>
+<p><strong>Step 2</strong>: Select line_build (from CLI or &quot;default&quot;) → determines layout + which layer_groups to apply</p>
+<p><strong>Step 3</strong>: Expand layout into graph:</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code>For each CabinetKind:
+  cabinet_kind.devices() → Vec&lt;DeviceKind&gt;
+  For each DeviceKind:
+    device_kind.modules() → Vec&lt;ModuleKind&gt;
+    Create numbered instances (buffer-1, buffer-2, ...)
+</code></pre>
+<p><strong>Step 4</strong>: Apply layers sequentially (order matters!):</p>
+<ul>
+<li>Each layer contains edits (EditSectionField, AssignSections, etc.)</li>
+<li>Later layers override earlier layers</li>
+<li>Edits target specific modules by Identity</li>
+</ul>
+<p><strong>Step 5</strong>: Write output files:</p>
+<ul>
+<li><code>profiles/{preset}/makeline.json</code> - Expanded graph (watched for hot-reload)</li>
+<li><code>generated/{preset}/simulation.json</code> - Copy of source (don't edit)</li>
+<li><code>generated/{preset}/spawner.json</code> - Process launch configs</li>
+<li><code>generated/{preset}/config.json</code> - Machine config</li>
+<li><code>generated/{preset}/watch.json</code> - File watch config</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="15" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="module-sections-reference">Module Sections Reference</h2>
+<p>Different modules have different section names. Common sections:</p>
+<p><strong>Buffer modules</strong>: <code>configuration</code></p>
+<ul>
+<li>Fields: <code>motion_timeout_ms</code>, <code>homing_velocity</code>, <code>home_to_lower_mrad</code>, etc.</li>
+</ul>
+<p><strong>Dispenser modules</strong>: <code>inputs</code>, <code>outputs</code></p>
+<ul>
+<li><code>inputs</code>: <code>assigned_ingredient_id</code>, <code>dispenser_kind</code></li>
+<li><code>outputs</code>: Runtime state (read-only)</li>
+</ul>
+<p><strong>Lifecycler module</strong>: <code>configuration</code>, <code>light</code></p>
+<ul>
+<li><code>configuration</code>: Lifecycle timing and fault handling</li>
+<li><code>light</code>: Zone mappings for visual feedback</li>
+</ul>
+<p><strong>Follower module</strong>: <code>configuration</code></p>
+<ul>
+<li>Load verification, taring, dispenser install timeout</li>
+</ul>
+<p><strong>HVAC modules</strong>: <code>configuration</code></p>
+<ul>
+<li>Temperature setpoints, fan controls</li>
+</ul>
+<p><strong>To find all sections</strong>: Open <code>profiles/{preset}/makeline.json</code>, search for module by owner name, inspect <code>&quot;sections&quot;:</code> object</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="16" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="layer-edit-types---part-1">Layer Edit Types - Part 1</h2>
+<p><strong>EditSectionField</strong>: Change single config field (most common)</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;EditSectionField&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;buffer-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;section_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;configuration&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;field_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;motion_timeout_ms&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;field_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20000</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>AssignSections</strong>: Replace entire sections (multiple related fields)</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignSections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;lifecycler-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;configuration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;cooldown_complete_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">24000</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;timeout_fault_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">600000</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;light&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;mappings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;light&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;light-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;zone_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>When to use</strong>: EditSectionField for single values, AssignSections for multiple related fields</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="17" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="layer-edit-types---part-2">Layer Edit Types - Part 2</h2>
+<p><strong>AssignDispensers</strong>: Populate all dispensers for cabinets</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignDispensers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;dispensers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;cabinet_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;dispenser_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;ingredient_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;black_beans&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;x&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;y&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;z&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Auger&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;cabinet_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;dispenser_index&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;ingredient_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;rice&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;position&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;x&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.1</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;y&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;z&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;kind&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Auger&quot;</span> <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>OmitModules</strong>: Remove modules from graph (testing/debugging)</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;OmitModules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;identities&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hvac-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;dispenser-5&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>AssignGlobalConfiguration</strong>: Set global makeline config</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignGlobalConfiguration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;assignment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;OperationMode&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Production&quot;</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+</code></pre>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="18" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="module-communication">Module Communication</h2>
+<p><strong>IPC via ZeroMQ</strong>: Each module = separate process on pub/sub network</p>
+<p><strong>Identity for routing</strong>: Messages addressed by <code>{ owner, subject }</code>:</p>
+<ul>
+<li><code>{ owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }</code> → message to buffer-1 process</li>
+<li><code>{ owner: &quot;buffer-1&quot;, subject: &quot;motor-1&quot; }</code> → message to buffer-1's motor child</li>
+<li>Makeline server routes based on Identity</li>
+</ul>
+<p><strong>Message types</strong>:</p>
+<ul>
+<li><strong>Commands</strong>: Tell module to do something (<code>MoveToUpper</code>, <code>Dispense</code>)</li>
+<li><strong>Events</strong>: Module broadcasts state changes (<code>MotionComplete</code>, <code>SensorTriggered</code>)</li>
+<li><strong>Config changes</strong>: Hot-reload sends <code>SectionChanged</code> events</li>
+</ul>
+<p><strong>Why Identity matters</strong>:</p>
+<ul>
+<li>Layers target modules by Identity</li>
+<li>IPC routing uses Identity</li>
+<li>Planner sequences using Identity</li>
+<li>Logging/debugging traces by Identity</li>
+</ul>
+<p><strong>Contract-based</strong>: Each module type has typed contracts (buffer_contract, dispense_contract, etc.)</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="19" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="how-targeting-works">How Targeting Works</h2>
+<p><strong>Identity structure</strong>: <code>{ owner: &quot;module-name&quot;, subject: &quot;target&quot; }</code></p>
+<p><strong>owner</strong>: Module instance name (numbered instances from graph expansion)</p>
+<ul>
+<li><code>&quot;buffer-1&quot;</code>, <code>&quot;buffer-2&quot;</code> (dispense cabinet buffers)</li>
+<li><code>&quot;lifecycler-1&quot;</code> (system singleton)</li>
+<li><code>&quot;lift-1&quot;</code> (lift cabinet)</li>
+<li><code>&quot;dispenser-1&quot;</code> through <code>&quot;dispenser-12&quot;</code> (v5111) or <code>&quot;dispenser-18&quot;</code> (v5112)</li>
+</ul>
+<p><strong>subject</strong>: Config target within the module hierarchy</p>
+<ul>
+<li><code>&quot;self&quot;</code> → module's own configuration sections (most common)</li>
+<li><code>&quot;motor-1&quot;</code> → first child motor module</li>
+<li><code>&quot;home-sensor&quot;</code>, <code>&quot;upper-sensor&quot;</code>, <code>&quot;lower-sensor&quot;</code> → child sensors</li>
+<li><code>&quot;rfid&quot;</code>, <code>&quot;loadcell&quot;</code> → child hardware modules</li>
+</ul>
+<p><strong>Module hierarchy examples</strong>:</p>
+<p><code>buffer-1</code> has children: <code>motor-1</code>, <code>home-sensor</code>, <code>upper-sensor</code>, <code>lower-sensor</code></p>
+<ul>
+<li>Edit buffer config: <code>{ owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }</code></li>
+<li>Edit buffer motor: <code>{ owner: &quot;buffer-1&quot;, subject: &quot;motor-1&quot; }</code></li>
+</ul>
+<p><code>dispenser-3</code> has children: <code>motor</code>, <code>rfid</code>, <code>loadcell</code></p>
+<ul>
+<li>Edit dispenser config: <code>{ owner: &quot;dispenser-3&quot;, &quot;subject&quot;: &quot;self&quot; }</code></li>
+<li>Edit dispenser RFID: <code>{ owner: &quot;dispenser-3&quot;, subject: &quot;rfid&quot; }</code></li>
+</ul>
+<p><strong>Finding modules</strong>: Open <code>profiles/{preset}/makeline.json</code>, search for <code>&quot;owner&quot;:</code> to see all instances and their children</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="20" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="hot-reload-mechanics">Hot-Reload Mechanics</h2>
+<p><strong>What triggers reload?</strong> Edit <code>profiles/{preset}.json</code> → watch_server detects → makeline_server reloads</p>
+<p><strong>Diff algorithm</strong>:</p>
+<ol>
+<li>Load new profile, expand to graph</li>
+<li>Compare new graph vs old graph (structure + sections)</li>
+<li>Identify changed modules (section values differ)</li>
+<li>Send <code>SectionChanged</code> events to affected modules</li>
+<li>Modules reconfigure without restarting process</li>
+</ol>
+<p><strong>What causes module restart?</strong></p>
+<ul>
+<li>Module added/removed from graph → spawner kills/starts process</li>
+<li>Module kind changed → spawner restarts with new executable</li>
+<li>Executable path changed → spawner restarts</li>
+</ul>
+<p><strong>What's hot-reloadable?</strong></p>
+<ul>
+<li>Section field values (timeouts, ingredients, positions)</li>
+<li>Section addition/removal</li>
+<li>Child module config</li>
+</ul>
+<p><strong>What's NOT hot-reloadable?</strong></p>
+<ul>
+<li>Adding/removing modules (requires spawner restart)</li>
+<li>Changing module kind</li>
+<li>Changing executable paths</li>
+</ul>
+<p><strong>Smart spawner</strong>: Only restarts processes with structural changes, leaves running processes alone</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="21" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="custom-layers">Custom Layers</h2>
+<p><strong>Dev tweaks without modifying preset profiles</strong></p>
+<p><code>just generate-makeline-custom simulation</code> → creates <code>custom_layers.json</code></p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;metadata&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Faster Buffer Motion&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;edits&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;EditSectionField&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;buffer-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;section_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;configuration&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;field_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;motion_timeout_ms&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;field_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10000</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+</code></pre>
+<p>Applied on top of preset layers → isolates your local changes</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="22" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="22" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="line-builds--switching">Line Builds &amp; Switching</h2>
+<p><strong>One profile, multiple configs</strong> via different layer combinations</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-attr">&quot;line_builds&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;production&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;layer_groups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;base&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;prod_ingredients&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;testing&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;layer_groups&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;base&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;test_ingredients&quot;</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>At generation</strong>: <code>just generate-makeline simulation testing</code></p>
+<p><strong>At runtime</strong> (Explorer):</p>
+<ul>
+<li><code>AvailableLineBuilds</code> → see options</li>
+<li><code>SelectLineBuild { line_build_name: &quot;production&quot; }</code> → switch (10-50ms)</li>
+</ul>
+<p>Switch test <img class="emoji" draggable="false" alt="↔" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@14.1.2/assets/svg/2194.svg" data-marp-twemoji=""/> production ingredients, zero downtime</p>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="23" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="23" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="generated-files-explained">Generated Files Explained</h2>
+<p><strong>spawner.json</strong>: Process launch configuration</p>
+<ul>
+<li>Executable paths, args, environment variables for each module</li>
+<li><code>generate-makeline</code>: Includes makeline_server references (enables hot-reload)</li>
+<li><code>generate</code>: Includes machine_config references only (legacy, no hot-reload)</li>
+</ul>
+<p><strong>makeline.json</strong>: Expanded module graph</p>
+<ul>
+<li>Lives in <code>profiles/{preset}/makeline.json</code> (not generated!)</li>
+<li>Contains all module instances with their sections</li>
+<li>Watched by makeline_server for changes (triggers hot-reload)</li>
+</ul>
+<p><strong>config.json</strong>: Machine config for planner/sequencer</p>
+<ul>
+<li>Graph representation used by assembly planning</li>
+<li>Generated from makeline.json</li>
+</ul>
+<p><strong>watch.json</strong>: File watch configuration</p>
+<ul>
+<li>Tells watch_server which files to monitor</li>
+<li>Points to <code>profiles/{preset}.json</code> (source profile)</li>
+</ul>
+<p><strong>simulation.json</strong>: Copy of source profile</p>
+<ul>
+<li>Regenerated in <code>generated/</code> on every generation</li>
+<li>Don't edit - use <code>profiles/simulation.json</code> instead</li>
+</ul>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="24" data-class="lead invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="lead invert" data-marpit-pagination="24" data-marpit-pagination-total="25" style="--class:lead invert;--paginate:true;--theme:gaia;--heading-divider:2;">
+<h2 id="system-rules--presets">System Rules &amp; Presets</h2>
+<p><strong>Always use</strong>: <code>just generate-makeline</code> (not <code>just generate</code>)</p>
+<ul>
+<li>Adds hot-reload support via makeline_server in spawner.json</li>
+</ul>
+<p><strong>Watch mechanism</strong>: Only <code>profiles/{preset}.json</code> triggers 2.5s auto-reload</p>
+<p><strong>Spawner behavior</strong>: Smart restart - only kills/restarts processes with config changes</p>
+<p><strong>Never edit</strong>: <code>generated/</code> directory - gets overwritten on every generation</p>
+<p><strong>Available presets</strong>:</p>
+<ul>
+<li><code>simulation</code> - Mock hardware, no real devices</li>
+<li><code>v5111</code> - 4 cabinets, 12 dispensers</li>
+<li><code>v5112</code> - 5 cabinets, 18 dispensers</li>
+<li><code>cabinet_tester</code> - ISO validation testing</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="25" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="25" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h1 id="thats-it">That's It</h1>
