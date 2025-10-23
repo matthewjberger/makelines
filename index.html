@@ -28,7 +28,8 @@ just simulate simulation
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code>generated/profiles/simulation/
 ├─ simulation.json         # Don't edit (gets regenerated)
 ├─ spawner.json            # Process launch config
-└─ custom_layers.json      # Your customizations
+├─ config.json             # Machine config
+└─ watch.json              # File watch config
 
 profiles/                  # Edit here
 ├─ simulation.json         # Active profile (watched)
@@ -164,7 +165,7 @@ profiles/                  # Edit here
 <h2 id="cabinet-%E2%86%92-device-mappings">Cabinet → Device Mappings</h2>
 <p><strong>Initial</strong> cabinet (system-wide services):</p>
 <ul>
-<li><code>Core</code> device → 20 modules</li>
+<li><code>Core</code> device → 21 modules</li>
 </ul>
 <p><strong>Denest</strong> cabinet (bowl handling):</p>
 <ul>
@@ -173,7 +174,6 @@ profiles/                  # Edit here
 <p><strong>Dispense</strong> cabinet (ingredient dispensing):</p>
 <ul>
 <li><code>CabinetCore</code>, <code>Hvac</code>, <code>DispenseFillPositioner</code></li>
-<li>Plus N × <code>Dispenser</code> devices (12 for v5111, 18 for v5112)</li>
 </ul>
 <p><strong>Lift</strong> cabinet (bowl presentation):</p>
 <ul>
@@ -182,7 +182,7 @@ profiles/                  # Edit here
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="11" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="device-%E2%86%92-module-details">Device → Module Details</h2>
-<p><strong>Core</strong> device (Initial cabinet only) - 20 system modules:</p>
+<p><strong>Core</strong> device (Initial cabinet only) - 21 system modules:</p>
 <ul>
 <li><code>Api-1</code>, <code>BowlRecovery-1</code>, <code>CabinetMonitor-1</code>, <code>Datalog-1</code></li>
 <li><code>Discovery-1</code>, <code>Echo-1</code>, <code>Fault-1</code>, <code>Follower-1</code></li>
@@ -194,11 +194,12 @@ profiles/                  # Edit here
 <ul>
 <li><code>Buffer</code>, <code>Conveyance</code>, <code>Shutter</code>, <code>Duc</code></li>
 </ul>
-<p><strong>Dispenser</strong> device (12-18 instances):</p>
+<p><strong>Module children examples</strong>:</p>
 <ul>
-<li><code>Duc</code> only (actual dispenser hardware)</li>
+<li><code>buffer-1</code> has: <code>motor-1</code>, <code>home-sensor</code>, <code>drip-tray</code>, <code>time-of-flight</code></li>
+<li><code>dispenser-3</code> has: <code>motor</code>, <code>rfid</code></li>
+<li><code>conveyance</code> has: <code>drip-tray</code>, <code>loadcell</code>, two motors</li>
 </ul>
-<p><strong>Module children</strong>: Buffer has Motor + Sensors; Dispenser has Motor + Rfid + LoadCell</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="12" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="core-modules-overview">Core Modules Overview</h2>
@@ -415,16 +416,16 @@ profiles/                  # Edit here
 <ul>
 <li><code>&quot;self&quot;</code> → module's own configuration sections (most common)</li>
 <li><code>&quot;motor-1&quot;</code> → first child motor module</li>
-<li><code>&quot;home-sensor&quot;</code>, <code>&quot;upper-sensor&quot;</code>, <code>&quot;lower-sensor&quot;</code> → child sensors</li>
+<li><code>&quot;home-sensor&quot;</code>, <code>&quot;drip-tray&quot;</code>, <code>&quot;time-of-flight&quot;</code> → child sensors</li>
 <li><code>&quot;rfid&quot;</code>, <code>&quot;loadcell&quot;</code> → child hardware modules</li>
 </ul>
 <p><strong>Module hierarchy examples</strong>:</p>
-<p><code>buffer-1</code> has children: <code>motor-1</code>, <code>home-sensor</code>, <code>upper-sensor</code>, <code>lower-sensor</code></p>
+<p><code>buffer-1</code> has children: <code>motor-1</code>, <code>home-sensor</code>, <code>drip-tray</code>, <code>time-of-flight</code></p>
 <ul>
 <li>Edit buffer config: <code>{ owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }</code></li>
 <li>Edit buffer motor: <code>{ owner: &quot;buffer-1&quot;, subject: &quot;motor-1&quot; }</code></li>
 </ul>
-<p><code>dispenser-3</code> has children: <code>motor</code>, <code>rfid</code>, <code>loadcell</code></p>
+<p><code>dispenser-3</code> has children: <code>motor</code>, <code>rfid</code></p>
 <ul>
 <li>Edit dispenser config: <code>{ owner: &quot;dispenser-3&quot;, &quot;subject&quot;: &quot;self&quot; }</code></li>
 <li>Edit dispenser RFID: <code>{ owner: &quot;dispenser-3&quot;, subject: &quot;rfid&quot; }</code></li>
@@ -433,7 +434,7 @@ profiles/                  # Edit here
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="20" data-marpit-pagination-total="25" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="hot-reload-mechanics">Hot-Reload Mechanics</h2>
-<p><strong>What triggers reload?</strong> Edit <code>profiles/{preset}.json</code> → watch_server detects → makeline_server reloads</p>
+<p><strong>What triggers reload?</strong> Edit <code>profiles/{preset}.json</code> → makeline_server detects → reloads and diffs</p>
 <p><strong>Diff algorithm</strong>:</p>
 <ol>
 <li>Load new profile, expand to graph</li>
@@ -515,10 +516,10 @@ profiles/                  # Edit here
 <li>Graph representation used by assembly planning</li>
 <li>Generated from makeline.json</li>
 </ul>
-<p><strong>watch.json</strong>: File watch configuration</p>
+<p><strong>watch.json</strong>: Message trigger configuration</p>
 <ul>
-<li>Tells watch_server which files to monitor</li>
-<li>Points to <code>profiles/{preset}.json</code> (source profile)</li>
+<li>Defines triggers based on IPC message patterns</li>
+<li>Used by watch_server for message-based automation</li>
 </ul>
 <p><strong>simulation.json</strong>: Copy of source profile</p>
 <ul>
