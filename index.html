@@ -90,12 +90,15 @@ Layers edit: { owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }
 </code></pre>
 <p><strong>AssignSections</strong>: Replace entire sections</p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;AssignSections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;buffer-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;lifecycler-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;sections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;configuration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;motion_timeout_ms&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">15000</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;homing_velocity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-2000</span> <span class="hljs-punctuation">}</span>
+    <span class="hljs-attr">&quot;configuration&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> ... <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;light&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;mappings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>...<span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
 </code></pre>
+<p><strong>Section names vary by module</strong>: <code>configuration</code>, <code>inputs</code>, <code>light</code>, etc.<br />
+Check <code>profiles/{preset}/makeline.json</code> to see what sections a module has.</p>
 <p><strong>Others</strong>: <code>AssignDispensers</code>, <code>OmitModules</code>, <code>AssignGlobalConfiguration</code></p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="8" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="8" data-marpit-pagination-total="13" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
@@ -103,16 +106,18 @@ Layers edit: { owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }
 <p><strong>Dev tweaks without modifying preset profiles</strong></p>
 <p><code>just generate-makeline-custom simulation</code> → creates <code>custom_layers.json</code></p>
 <pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;metadata&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Colder HVAC&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;edits&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;EditSectionField&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hvac-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;section_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;config&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;field_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;setpoint_celsius&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;field_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2.0</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+  <span class="hljs-attr">&quot;metadata&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Faster Buffer Motion&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;edits&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;EditSectionField&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;identity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;owner&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;buffer-1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;subject&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;self&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;section_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;configuration&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;field_key&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;motion_timeout_ms&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;field_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10000</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
 </code></pre>
-<p>Applied on top of preset → isolates your local changes</p>
+<p>Applied on top of preset layers → isolates your local changes</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="9" data-marpit-pagination-total="13" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="line-builds--switching">Line Builds &amp; Switching</h2>
@@ -148,12 +153,22 @@ Layers edit: { owner: &quot;buffer-1&quot;, subject: &quot;self&quot; }
 <p><strong>Find module names</strong>: <code>profiles/{preset}/makeline.json</code> shows all instances</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-class="invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="invert" data-marpit-pagination="11" data-marpit-pagination-total="13" style="--class:invert;--paginate:true;--theme:gaia;--heading-divider:2;">
-<h2 id="system-behavior">System Behavior</h2>
-<p><strong>Watch mechanism</strong>: Only <code>profiles/{preset}.json</code> triggers 2.5s reload</p>
-<p><strong>Spawner</strong>: Smart restart - only restarts processes with config changes</p>
-<p><strong>Generated files</strong>: Never edit <code>generated/</code> - gets overwritten on regeneration</p>
-<p><strong>generate-makeline vs generate</strong>: Always use <code>generate-makeline</code> for hot-reload support</p>
-<p><strong>Presets</strong>: <code>simulation</code>, <code>v5111</code>, <code>v5112</code>, <code>cabinet_tester</code></p>
+<h2 id="system-rules--presets">System Rules &amp; Presets</h2>
+<p><strong>Always use</strong>: <code>just generate-makeline</code> (not <code>just generate</code>)</p>
+<ul>
+<li><code>generate-makeline</code> adds hot-reload support to spawner entries</li>
+<li><code>generate</code> creates machine_config-only entries (legacy)</li>
+</ul>
+<p><strong>Watch mechanism</strong>: Only <code>profiles/{preset}.json</code> triggers 2.5s auto-reload</p>
+<p><strong>Spawner behavior</strong>: Smart restart - only kills/restarts processes with config changes</p>
+<p><strong>Never edit</strong>: <code>generated/</code> directory - gets overwritten on every generation</p>
+<p><strong>Available presets</strong>:</p>
+<ul>
+<li><code>simulation</code> - Mock hardware, no real devices</li>
+<li><code>v5111</code> - 4 cabinets, 12 dispensers</li>
+<li><code>v5112</code> - 5 cabinets, 18 dispensers</li>
+<li><code>cabinet_tester</code> - ISO validation testing</li>
+</ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="12" data-class="lead invert" data-paginate="true" data-theme="gaia" data-heading-divider="2" class="lead invert" data-marpit-pagination="12" data-marpit-pagination-total="13" style="--class:lead invert;--paginate:true;--theme:gaia;--heading-divider:2;">
 <h2 id="troubleshooting">Troubleshooting</h2>
